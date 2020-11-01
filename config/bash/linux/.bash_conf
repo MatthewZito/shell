@@ -1,5 +1,5 @@
 # gen, set LSCOLORS var
-eval `dircolors ~/.dir_colors/dircolors`
+eval `dircolors ~/.dir_colors/bliss.dircolors`
 
 # colored GCC warnings and errors
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
@@ -51,5 +51,5 @@ function parse_git_dirty {
 	fi
 }
 
-export PS1="\[\e[36m\]\u\[\e[m\]\[\e[31m\]@\[\e[m\]\[\e[32m\]\W\[\e[m\]\[\e[33m\]\`parse_git_branch\`\[\e[m\]\[\e[35m\]\\$\[\e[m\] "
-export PS2="continue--> "
+export PS1="\[$(tput setaf 5)\]\u\[\e[m\]\[$(tput setaf 4)\]@\[\e[m\]\[$(tput setaf 2)\]\W\[$(tput setaf 6)\]\`parse_git_branch\`\[$(tput setaf 12)\]::\[\e[m\] "
+export PS2="\[$(tput setaf 3)\]continue-->\[\e[m\] "
