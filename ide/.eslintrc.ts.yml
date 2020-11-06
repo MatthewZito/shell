@@ -19,7 +19,6 @@ rules:
         - 2
         - checkLoops: false
     no-duplicate-imports: 2
-    no-empty-function: 2
     no-else-return: 2
     no-eval: 2
     no-extend-native: 2
@@ -51,7 +50,6 @@ rules:
     no-useless-call: 2
     no-useless-computed-key: 2
     no-useless-concat: 2
-    no-useless-constructor: 2
     no-useless-rename: 2
     no-with: 2
     operator-assignment: 2
