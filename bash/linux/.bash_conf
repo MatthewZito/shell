@@ -1,3 +1,6 @@
+# remap caps -> super
+setxkbmap -option caps:super
+
 # gen, set LSCOLORS var
 eval `dircolors ~/.dir_colors/bliss.dircolors`
 
