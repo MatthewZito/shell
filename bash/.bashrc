@@ -1,7 +1,7 @@
 # If not running interactively, don't do anything
 case $- in
-    *i*) ;;
-      *) return;;
+  *i*) ;;
+  *) return;;
 esac
 
 # prevent duplicate lines, lines space-prepended in hist
@@ -27,15 +27,16 @@ shopt -s globstar
 
 # If this is an xterm set the title to user@host:dir
 case "$TERM" in
-xterm*|rxvt*)
+  xterm*|rxvt*)
     PS1="\[\e]0;${debian_chroot:+($debian_chroot)}\u@\h: \w\a\]$PS1"
     ;;
-*)
+  *)
     ;;
 esac
 
+# source aliases
 if [ -f ~/.bash_aliases ]; then
-    . ~/.bash_aliases
+  . ~/.bash_aliases
 fi
 
 # enable programmable completion
@@ -48,13 +49,21 @@ if ! shopt -oq posix; then
 fi
 
 # config (PS1, etc)
-source ~/.bash_conf
-# functions
-source ~/.bash_functions
+if [ -f ~/.bash_conf ]; then
+  . ~/.bash_conf
+fi
 
+# functions
+if [ -f ~/.bash_functions ]; then
+  . ~/.bash_functions
+fi
+
+## bin conf
+
+# nvm
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
 
 # golang
 export PATH=$PATH:/usr/local/go/bin

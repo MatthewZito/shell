@@ -1,4 +1,1 @@
-### Personal Configurations 
-  - bash, vim
-  - gnome env
-  - ide
+### Personal Configurations and dotfiles

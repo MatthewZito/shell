@@ -1,0 +1,13 @@
+set expandtab
+set smarttab
+set shiftwidth=2
+set tabstop=2
+set lbr
+set tw=500
+set ai
+set si
+set wrap
+set laststatus=2
+packadd! dracula
+syntax enable
+colorscheme dracula
