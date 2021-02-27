@@ -7,7 +7,12 @@ rmd() {
 }
 
 add_alias() {
-  local alias_body=$1
+  local alias_body="$1"
+
+  [[ -z "$alias_body" ]] && {
+    echo "[-] Alias body not provided"
+    return 1
+  }
 
   echo "alias $alias_body" >> "$HOME/bash_settings/alias.bash"
 

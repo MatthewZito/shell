@@ -15,9 +15,21 @@ alias l='ls -CF'
 # sleep 10; alert
 alias alert='notify-send --urgency=low -i "$([ $? = 0 ] && echo terminal || echo error)" "$(history|tail -n1|sed -e '\''s/^\s*[0-9]\+\s*//;s/[;&|]\s*alert$//'\'')"'
 
-alias repos="cd ~/repositories"
-alias open="xdg-open"
-alias vpn="expressvpn"
+# navigation
+alias repos='cd ~/repositories'
+alias docs='cd ~/Documents'
+alias desktop='cd ~/Desktop'
+alias open='xdg-open'
 
 # purge bash hist
-alias purgehist="cat /dev/null > ~/.bash_history"
+alias purgehist='cat /dev/null > ~/.bash_history'
+
+# apps
+alias vpn='expressvpn'
+
+# git
+alias gpull='git pull'
+alias gpush='git push'
+alias gaddall='git add .'
+alias gswitch='git add . && git switch -c'
+alias gstats='git status'
