@@ -1,21 +1,21 @@
 # remap caps -> super
-setxkbmap -option caps:super
+setxkbmap -option caps:super 2>/dev/null
 
-# gen, set LSCOLORS var
-if [[ -e ~/.dir_colors/bliss.dircolors ]]; then
-	eval `dircolors ~/.dir_colors/bliss.dircolors`
+# LSCOLORS config
+if [[ -e ~/.dir_colors/dircolors ]]; then
+	eval `dircolors ~/.dir_colors/dircolors`
 fi
 
-# colored GCC warnings and errors
+# GCC color config
 export GCC_COLORS='error=01;31:warning=01;35:note=01;36:caret=01;32:locus=01:quote=01'
 
 # get current branch in git repo
 parse_git_branch() {
-	BRANCH=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
+	local stat branch=$(git branch 2> /dev/null | sed -e '/^[^*]/d' -e 's/* \(.*\)/\1/')
 
-	if [ ! "$BRANCH" == "" ]; then
-		STAT=$(parse_git_dirty)
-		echo "[${BRANCH}${STAT}]"
+	if [[ ! -z "$branch" ]]; then
+		stat=$(parse_git_dirty)
+		echo " (${branch}${stat})"
 	else
 		echo ""
 	fi
@@ -23,45 +23,33 @@ parse_git_branch() {
 
 # get current status of git repo
 parse_git_dirty() {
-	status=$(git status 2>&1 | tee)
+	local status=$(git status 2>&1 | tee)
 
-	dirty=$(echo -n "$status" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?")
-	untracked=$(echo -n "$status" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?")
-	ahead=$(echo -n "$status" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?")
-	newfile=$(echo -n "$status" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?")
-	renamed=$(echo -n "$status" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?")
-	deleted=$(echo -n "$status" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?")
+	local dirty=$(echo -n "$status" 2> /dev/null | grep "modified:" &> /dev/null; echo "$?")
+	local untracked=$(echo -n "$status" 2> /dev/null | grep "Untracked files" &> /dev/null; echo "$?")
+	local ahead=$(echo -n "$status" 2> /dev/null | grep "Your branch is ahead of" &> /dev/null; echo "$?")
+	local newfile=$(echo -n "$status" 2> /dev/null | grep "new file:" &> /dev/null; echo "$?")
+	local renamed=$(echo -n "$status" 2> /dev/null | grep "renamed:" &> /dev/null; echo "$?")
+	local deleted=$(echo -n "$status" 2> /dev/null | grep "deleted:" &> /dev/null; echo "$?")
 
-	bits=''
+	local bits=''
 
-	if [ "$renamed" == "0" ]; then
-		bits=">${bits}"
-	fi
+	[[ "$renamed" == "0" ]] && bits=">${bits}"
 
-	if [ "$ahead" == "0" ]; then
-		bits="*${bits}"
-	fi
+	[[ "$ahead" == "0" ]] && bits="*${bits}"
 
-	if [ "$newfile" == "0" ]; then
-		bits="+${bits}"
-	fi
+	[[ "$newfile" == "0" ]] && bits="+${bits}"
 
-	if [ "$untracked" == "0" ]; then
-		bits="?${bits}"
-	fi
+	[[ "$untracked" == "0" ]] && bits="?${bits}"
 
-	if [ "$deleted" == "0" ]; then
-		bits="x$bits"
-	fi
-	if [ "$dirty" == "0" ]; then
-		bits="!$bits"
-	fi
-	if [ ! "$bits" == "" ]; then
-		echo " $bits"
-	else
-		echo ""
-	fi
+	[[ "$deleted" == "0" ]] && bits="x$bits"
+
+	[[ "$dirty" == "0" ]] && bits="!$bits"
+
+	[[ ! -z "$bits" ]] && echo " $bits" || echo ""
+
 }
 
-export PS1="\[$(tput setaf 5)\]\u\[\e[m\]\[$(tput setaf 4)\]@\[\e[m\]\[$(tput setaf 2)\]\W\[$(tput setaf 6)\]\`parse_git_branch\`\[$(tput setaf 12)\]::\[\e[m\] "
+# prompts
+export PS1="\[$(tput setaf 5)\]\u\[\e[m\]\[$(tput setaf 4)\]@\[\e[m\]\[$(tput setaf 2)\]\W\[$(tput setaf 6)\]\`parse_git_branch\`\[$(tput setaf 12)\] =>\[\e[m\] "
 export PS2="\[$(tput setaf 3)\]continue-->\[\e[m\] "

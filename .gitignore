@@ -1,0 +1,8 @@
+*
+!.gitignore
+!.gitattributes
+!README.md
+
+!bash/bash_settings
+!bash/.bashrc
+!vim/.vimrc

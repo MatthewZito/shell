@@ -21,4 +21,3 @@ alias vpn="expressvpn"
 
 # purge bash hist
 alias purgehist="cat /dev/null > ~/.bash_history"
-

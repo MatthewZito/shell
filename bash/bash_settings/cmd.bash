@@ -1,9 +1,7 @@
-# base64 conversion
 base64() {
-  echo "$1" | openssl base64
+  openssl base64<<<"$1"
 }
 
-# render markdown
 rmd() {
   pandoc "$1" | lynx -stdin
 }
@@ -11,11 +9,23 @@ rmd() {
 add_alias() {
   local alias_body=$1
 
-  echo "alias $alias_body" >> "$HOME/settings/alias.bash"
+  echo "alias $alias_body" >> "$HOME/bash_settings/alias.bash"
 
-  echo "[+] Successfully added new alias"
+  (( "$?" == 0 )) && echo "[+] Successfully added new alias"
 }
 
 psaux() {
   pgrep -f "$@" | xargs ps -fp 2>/dev/null
+}
+
+open_enc() {
+  local mount="$1" proxy="$2"
+  
+  encfs ${mount:-~/.enc/} ${proxy:-~/enc/}
+}
+
+close_enc() {
+  local proxy="$1"
+
+  fusermount -u ${proxy:-~/enc}
 }
