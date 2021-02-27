@@ -15,3 +15,7 @@ add_alias() {
 
   echo "[+] Successfully added new alias"
 }
+
+psaux() {
+  pgrep -f "$@" | xargs ps -fp 2>/dev/null
+}
