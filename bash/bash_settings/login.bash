@@ -3,7 +3,7 @@ setxkbmap -option caps:super 2>/dev/null
 
 # LSCOLORS config
 if [[ -e ~/.dir_colors/dircolors ]]; then
-	eval `dircolors ~/.dir_colors/dircolors`
+	eval `dircolors ~/.dir_colors/goldmund.dircolors`
 fi
 
 # GCC color config

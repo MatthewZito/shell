@@ -7,3 +7,4 @@
 !bash/*
 !bash/bash_settings/*
 !vim/*
+!bash/.dir_colors/*
