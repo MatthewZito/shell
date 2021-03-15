@@ -34,3 +34,7 @@ close_enc() {
 
   fusermount -u ${proxy:-~/enc}
 }
+
+make_transparent() {
+  xprop -format _NET_WM_WINDOW_OPACITY 32c -set _NET_WM_WINDOW_OPACITY 0xEFFFFFFF
+}
